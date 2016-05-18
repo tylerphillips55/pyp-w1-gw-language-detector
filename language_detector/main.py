@@ -8,7 +8,8 @@ import re
 
 
 def detect_language(text, languages):
-    text = re.compile('[%s]' % re.escape(string.punctuation)).sub('',text)      #remove punctuation in string
+    text = re.compile('[%s]' % re.escape(string.punctuation)).sub('',text)     #remove punctuation in string
+    text = text.lower()
     ls = text.split()                                                           #returns list of words in text
     word_counts = {}                                                            #dict will hold {word:frequency in text}
     total = {}                                                                  #dict will hold {language:total common words that appear}
