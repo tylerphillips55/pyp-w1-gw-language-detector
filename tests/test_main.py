@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import unittest
 
 from language_detector import detect_language
@@ -31,7 +32,24 @@ class TestLanguageDetector(unittest.TestCase):
                     'bin', 'noch', 'dir', 'uns', 'sich', 'nur',
                     'einen', 'kann', 'dem'
                 ]
-            }
+            },
+            {
+                'name': 'English',
+                'common_words': [
+                    'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 
+                    'I', 'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 
+                    'at', 'this', 'but', 'his', 'by', 'from', 'they', 'we', 'say', 
+                    'her', 'she', 'or', 'an', 'will', 'my', 'one', 'all', 'would', 
+                    'there', 'their', 'what', 'so', 'up', 'out', 'if', 'about', 
+                    'who', 'get', 'which', 'go', 'me', 'when', 'make', 'can', 'like', 
+                    'time', 'no', 'just', 'him', 'know', 'take', 'people', 'into', 
+                    'year', 'your', 'good', 'some', 'could', 'them', 'see', 'other', 
+                    'than', 'then', 'now', 'look', 'only', 'come', 'its', 'over', 
+                    'think', 'also', 'back', 'after', 'use', 'two', 'how', 'our', 
+                    'work', 'first', 'well', 'way', 'even', 'new', 'want', 'because', 
+                    'any', 'these', 'give', 'day', 'most', 'us'
+                ]  
+            },
         ]
 
     def test_detect_language_spanish(self):
@@ -60,6 +78,20 @@ class TestLanguageDetector(unittest.TestCase):
         """
         result = detect_language(text, self.languages)
         self.assertEqual(result, 'German')
+    
+    def test_detect_language_english(self):
+        text = """
+             Four score and seven years ago our fathers brought forth on this 
+             continent, a new nation, conceived in Liberty, and dedicated to the 
+             proposition that all men are created equal. Now we are engaged in a great 
+             civil war, testing whether that nation, or any nation so conceived and 
+             so dedicated, can long endure. We are met on a great battle-field of that war. 
+             We have come to dedicate a portion of that field, as a final resting 
+             place for those who here gave their lives that that nation might live.
+        """
+        result = detect_language(text, self.languages)
+        self.assertEqual(result, 'English')
+
 
     def test_detect_language_mixed_languages(self):
         text = """
@@ -74,6 +106,16 @@ class TestLanguageDetector(unittest.TestCase):
             Mit 24 Jahren wurde er Rekordtorschütze des FC Barcelona, mit 25
             der jüngste Spieler in der La-Liga-Geschichte, der 200 Tore
             erzielte.
+            
+            # english
+            Four score and seven years ago our fathers brought forth on this 
+            continent, a new nation, conceived in Liberty, and dedicated to the 
+            proposition that all men are created equal. Now we are engaged in a great 
+            civil war, testing whether that nation, or any nation so conceived and 
+            so dedicated, can long endure. We are met on a great battle-field of that war. 
+            We have come to dedicate a portion of that field, as a final resting 
+            place for those who here gave their lives that that nation might live.
+            
         """
         result = detect_language(text, self.languages)
-        self.assertEqual(result, 'Spanish')
+        self.assertEqual(result, 'English')
